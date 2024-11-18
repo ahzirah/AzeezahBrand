@@ -2,6 +2,7 @@ package com.example.azeezahbrand
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -12,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -36,15 +38,15 @@ fun MainScreen() {
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         BottomNav.Home,
-        BottomNav.Profile,
         BottomNav.CustomOrder,
         BottomNav.SizeGuide,
+        BottomNav.Profile,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
 
-    NavigationBar(modifier = Modifier.fillMaxWidth(), containerColor = Color.White) {
+    NavigationBar(modifier = Modifier.fillMaxWidth().height(70.dp), containerColor = Color.White) {
         screens.forEach{ screen ->
             NavigationBarItem(
                 label = {
