@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "795632936448",
+    "project_id": "azeezahbrand",
+    "storage_bucket": "azeezahbrand.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795632936448:android:bd2de4fd620624d5ba5ae5",
+        "android_client_info": {
+          "package_name": "com.example.azeezahbrand"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1N0IR1JpAR16F6wsq9RXIRWFMrquK-94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
