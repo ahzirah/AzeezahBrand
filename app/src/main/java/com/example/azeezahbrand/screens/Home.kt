@@ -21,7 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,10 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.azeezahbrand.R
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.rememberCoroutineScope
-import com.example.azeezahbrand.presentation.authentication.defaultPadding
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
@@ -53,7 +49,7 @@ fun HomeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(colorResource(id = R.color.background2))
     ) {
         // Header Section
         Column(
@@ -119,10 +115,10 @@ fun HomeScreen() {
 @Composable
 fun ImageGrid() {
     val images = listOf(
-        R.drawable.abaya1, // Replace with your image names
         R.drawable.abaya1,
-        R.drawable.abaya1,
-        R.drawable.abaya1
+        R.drawable.abaya2,
+        R.drawable.abaya3,
+        R.drawable.abaya4
     )
 
     Column(
@@ -204,7 +200,7 @@ fun ImageGrid() {
                                     .border(
                                         width = 2.dp,
                                         color = colorResource(id = R.color.brand_color), // Border in brand color
-                                        shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                                        shape = RoundedCornerShape(topStart = 8.5.dp, topEnd = 8.5.dp)
                                     )
                             ) {
                                 Image(
@@ -240,7 +236,6 @@ fun ImageGrid() {
     }
 }
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CarouselSlider() {
     val images = listOf(
@@ -253,7 +248,6 @@ fun CarouselSlider() {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
 
-    // Auto-slide functionality
     LaunchedEffect(pagerState.currentPage) {
         while (true) {
             delay(3000) // Slide every 3 seconds
@@ -300,13 +294,7 @@ fun CarouselSlider() {
         )
     }
 }
-@Composable
-fun CustomCard(image: Int) {
 
-}
-//@Composable
-//fun GridImageItem(imageRes: Int) {
-//
 //}
 
 @Composable

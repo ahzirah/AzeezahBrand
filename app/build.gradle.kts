@@ -77,7 +77,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
+
+
+    implementation(libs.coil.compose.v240)
+    
+
+
 //    implementation (libs.androidx.navigation.compose.v273)
+
+
 
     // Compose Material Icons
     implementation(libs.androidx.material.icons.extended)

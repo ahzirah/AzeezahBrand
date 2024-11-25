@@ -1,6 +1,8 @@
 [versions]
 agp = "8.6.1"
+coil = "2.4.0"
 androidxNavigationCompose = "2.7.3"
+coilCompose = "2.4.0"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -23,10 +25,12 @@ androidxNavigationComposeVersion = "2.8.4"
 accompanist = "0.30.1"
 
 [libraries]
+coil-compose = "io.coil-kt:coil-compose:${versions.coil}"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 #androidx-navigation-compose-v273 = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigationCompose" }
+coil-compose-v240 = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
