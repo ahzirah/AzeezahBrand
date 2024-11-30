@@ -1,5 +1,6 @@
 package com.example.azeezahbrand
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
@@ -10,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +27,7 @@ import com.example.azeezahbrand.screens.OrderDetails
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    val cartItemCount = remember { mutableStateOf(0) }
     val cartItems = remember { mutableStateListOf<OrderDetails>() }
     Scaffold(
         bottomBar = {
@@ -48,7 +51,9 @@ fun BottomBar(navController: NavHostController) {
     val currentDestination = navBackStackEntry?.destination
 
 
-    NavigationBar(modifier = Modifier.fillMaxWidth().height(70.dp), containerColor = Color.White) {
+    NavigationBar(modifier = Modifier
+        .fillMaxWidth()
+        .height(70.dp), containerColor = Color.White) {
         screens.forEach{ screen ->
             NavigationBarItem(
                 label = {

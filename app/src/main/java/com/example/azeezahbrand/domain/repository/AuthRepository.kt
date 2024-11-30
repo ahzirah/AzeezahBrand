@@ -50,4 +50,8 @@ class AuthenticationRepository(){
             Result.failure(e)
         }
     }
+
+    suspend fun currentUser(): FirebaseUser? {
+        return firebaseAuth.currentUser
+    }
 }
