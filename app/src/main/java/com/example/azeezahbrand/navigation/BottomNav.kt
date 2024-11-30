@@ -28,9 +28,4 @@ sealed class BottomNav (
         title = "Profile",
         icon = Icons.Default.Person
     )
-//    object ShoppingCart: BottomNav(
-//        route = "Shopping Cart",
-//        title = "Shopping Cart",
-//        icon = Icons.Default.ShoppingCart
-//    )
 }

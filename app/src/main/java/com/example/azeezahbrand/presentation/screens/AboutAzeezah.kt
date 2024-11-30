@@ -1,17 +1,17 @@
 package com.example.azeezahbrand.presentation.screens
 
-
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
-import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,8 +21,10 @@ import androidx.compose.ui.unit.dp
 import com.example.azeezahbrand.R
 
 
+
+
 @Composable
-fun ShoppingCartScreen(
+fun AboutAzeezahScreen(
     onBack: () -> Unit
 ) {
 
@@ -30,7 +32,7 @@ fun ShoppingCartScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Shopping Cart", color = Color.White) },
+                title = { Text(text = "About AZEEZAH Brand", color = Color.White) },
                 backgroundColor = colorResource(id = R.color.brand_color),
                 navigationIcon = {
                     IconButton(onClick = onBack) {
@@ -52,14 +54,9 @@ fun ShoppingCartScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-        Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(1f))
 
-            Button(
-                onClick = { /* Handle Checkout */ },
-            ) {
 
-                Text("Checkout")
-            }
         }
     }
 }
@@ -69,8 +66,8 @@ fun ShoppingCartScreen(
 
 @Preview
 @Composable
-fun ShoppingCartScreenPreview() {
-    ShoppingCartScreen(
+fun AboutAzeezahScreenPreview() {
+    AboutAzeezahScreen(
         onBack = { println("Back pressed") }
     )
 }

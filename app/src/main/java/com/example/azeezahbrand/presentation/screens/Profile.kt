@@ -1,6 +1,7 @@
 package com.example.azeezahbrand.presentation.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,16 +19,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.azeezahbrand.R
 
 @Composable
 fun ProfileScreen(
+    navController: NavHostController,
     onBack: () -> Unit
 ) {
     Scaffold(
@@ -78,17 +84,20 @@ fun ProfileScreen(
                 color = Color.Gray
             )
             Spacer(modifier = Modifier.height(32.dp))
-            ProfileOption("Notification", android.R.drawable.ic_dialog_email)
-            ProfileOption("Orders", android.R.drawable.ic_menu_view)
-            ProfileOption("Shipping Info", android.R.drawable.ic_menu_info_details)
-            ProfileOption("About AZEEZAH", android.R.drawable.ic_menu_more)
-            ProfileOption("Logout", android.R.drawable.ic_lock_power_off)
+            ProfileOption("Manage Account", android.R.drawable.ic_dialog_email, navController, "ManageAccountScreen")
+            ProfileOption("Address Book", android.R.drawable.ic_menu_view, navController, "AddressBookScreen")
+            ProfileOption("My Orders", android.R.drawable.ic_menu_view, navController, "MyOrdersScreen")
+            ProfileOption("About AZEEZAH", android.R.drawable.ic_menu_more, navController, "AboutAzeezahScreen")
+            ProfileOption("Logout", android.R.drawable.ic_lock_power_off, navController, "LogoutScreen")
         }
     }
 }
 
 @Composable
-fun ProfileOption(title: String, iconRes: Int) {
+fun ProfileOption(title: String,
+                  iconRes: Int,
+                  navController: NavController,
+                  destination: String) {
     Card(
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp,
@@ -112,6 +121,8 @@ fun ProfileOption(title: String, iconRes: Int) {
             Text(
                 text = title,
                 fontSize = 16.sp,
+                fontStyle = FontStyle.Normal,
+                fontFamily = FontFamily.Serif,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.weight(1f)
             )
@@ -120,15 +131,23 @@ fun ProfileOption(title: String, iconRes: Int) {
                 contentDescription = "Arrow",
                 tint = Color.Gray,
                 modifier = Modifier.size(16.dp)
+                                    .clickable {
+                                        navController.navigate(destination)
+                                    }
             )
         }
     }
 }
 
+
 @Composable
-@Preview
-fun ProfileScreenPreview() {
-    ProfileScreen(
-        onBack = { println("Back pressed") }
-    )
+fun LogoutScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text(text = "Logout Screen")
+    }
 }
+
