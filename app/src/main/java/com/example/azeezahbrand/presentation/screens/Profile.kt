@@ -1,4 +1,4 @@
-package com.example.azeezahbrand.screens
+package com.example.azeezahbrand.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -27,14 +27,16 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.azeezahbrand.R
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    onBack: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Profile", color = Color.White) },
                 backgroundColor = colorResource(id = R.color.brand_color),
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = onBack ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
@@ -126,5 +128,7 @@ fun ProfileOption(title: String, iconRes: Int) {
 @Composable
 @Preview
 fun ProfileScreenPreview() {
-    ProfileScreen()
+    ProfileScreen(
+        onBack = { println("Back pressed") }
+    )
 }

@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.unit.sp
-import com.example.azeezahbrand.OnboardingActivity
+import com.example.azeezahbrand.presentation.screens.OnboardingActivity
 import com.example.azeezahbrand.R
 
 class SplashActivity : ComponentActivity() {

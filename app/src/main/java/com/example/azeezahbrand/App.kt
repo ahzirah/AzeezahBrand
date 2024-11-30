@@ -1,6 +1,5 @@
 package com.example.azeezahbrand
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
@@ -22,20 +21,21 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.azeezahbrand.screens.OrderDetails
+import com.example.azeezahbrand.navigation.BottomNav
+import com.example.azeezahbrand.navigation.BottomNavGraph
 
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val cartItemCount = remember { mutableStateOf(0) }
-    val cartItems = remember { mutableStateListOf<OrderDetails>() }
+   // val cartItemCount = remember { mutableStateOf(0) }
+   // val cartItems = remember { mutableStateListOf<OrderDetails>() }
     Scaffold(
         bottomBar = {
             BottomBar(navController = navController)
         }
     ) {
         padding ->
-        BottomNavGraph(navController = navController, paddingValues = padding, cartItems = cartItems)
+        BottomNavGraph(navController = navController, paddingValues = padding)
     }
 }
 
@@ -43,8 +43,7 @@ fun MainScreen() {
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         BottomNav.Home,
-        BottomNav.CustomOrder,
-        BottomNav.ShoppingCart,
+        BottomNav.SizeGuide,
         BottomNav.Profile,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()

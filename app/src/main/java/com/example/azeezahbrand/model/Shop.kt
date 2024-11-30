@@ -8,7 +8,8 @@ data class CartItem (
     var id: String = "",
     var imageId: Int = 0,
     var productName: String = "",
-    var productdescription: String = "",
+    var productDescription: String = "",
+    var productPrize: String = " ",
     var size: String = ""
 )
 
@@ -16,9 +17,9 @@ data class  Product (
     var productid: String = "",
     var imageId: Int = 0,
     var productName: String = "",
-    var productdescription: String = "",
+    var productDescription: String = "",
+    var productPrize: String = " ",
     var size: List<String> = emptyList()
-
 
 )
 
@@ -28,29 +29,30 @@ val productList = listOf(
         productid = UUID.randomUUID().toString(),
         imageId = R.drawable.abaya1,
         productName = "sheer abaya",
-        productdescription = "",
-        size = listOf("xm", "xxl")
+        productDescription = "",
+        productPrize = "£45",
+        size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
     Product(
         productid = UUID.randomUUID().toString(),
         imageId = R.drawable.abaya2,
         productName = "kimono style abaya",
-        productdescription = "",
-        size = listOf("xm", "xxl")
+        productDescription = "£67",
+        size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
     Product(
         productid = UUID.randomUUID().toString(),
         imageId = R.drawable.abaya3,
         productName = "classic abaya",
-        productdescription = "",
-        size = listOf("xm", "xxl")
+        productDescription = "£90",
+        size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
     Product(
         productid = UUID.randomUUID().toString(),
         imageId = R.drawable.abaya4,
         productName = "elegant abaya",
-        productdescription = "",
-        size = listOf("xm", "xxl")
+        productDescription = "£78",
+        size = listOf("XS", "S", "M", "L", "XL", "XXL")
     )
 )
 

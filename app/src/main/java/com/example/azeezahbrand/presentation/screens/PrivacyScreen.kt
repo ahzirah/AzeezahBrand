@@ -1,4 +1,4 @@
-package com.example.azeezahbrand
+package com.example.azeezahbrand.presentation.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

@@ -31,7 +31,7 @@
             android:theme="@style/Theme.AzeezahBrand"/>
 
         <activity
-            android:name=".OnboardingActivity"
+            android:name=".presentation.screens.OnboardingActivity"
             android:exported="true"
             android:theme="@style/Theme.AzeezahBrand"/>
 

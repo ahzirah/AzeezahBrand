@@ -1,4 +1,4 @@
-package components
+package com.example.azeezahbrand.components
 
 
 import androidx.compose.foundation.layout.height

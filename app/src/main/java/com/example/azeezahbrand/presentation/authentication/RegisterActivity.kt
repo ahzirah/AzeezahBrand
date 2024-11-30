@@ -56,7 +56,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.azeezahbrand.MainActivity
 import com.example.azeezahbrand.R
 import com.example.azeezahbrand.domain.repository.AuthenticationRepository
-import components.LoginTextField
+import com.example.azeezahbrand.components.LoginTextField
 
 
 class RegisterActivity : ComponentActivity() {

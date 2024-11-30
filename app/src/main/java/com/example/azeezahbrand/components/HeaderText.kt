@@ -1,4 +1,4 @@
-package components
+package com.example.azeezahbrand.components
 
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.Text

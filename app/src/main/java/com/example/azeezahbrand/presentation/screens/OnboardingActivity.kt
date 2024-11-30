@@ -1,4 +1,4 @@
-package com.example.azeezahbrand
+package com.example.azeezahbrand.presentation.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
-import com.example.azeezahbrand.presentation.authentication.LoginActivity
+import com.example.azeezahbrand.R
 import com.example.azeezahbrand.presentation.authentication.RegisterActivity
 
 class OnboardingActivity : ComponentActivity() {
