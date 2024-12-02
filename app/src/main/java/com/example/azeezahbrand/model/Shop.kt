@@ -1,7 +1,6 @@
 package com.example.azeezahbrand.model
-import com.example.azeezahbrand.R
-import com.google.protobuf.Empty
 
+import com.example.azeezahbrand.R
 import java.util.UUID
 
 data class CartItem (

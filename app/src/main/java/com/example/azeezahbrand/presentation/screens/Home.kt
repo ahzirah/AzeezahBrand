@@ -69,7 +69,6 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController,) 
     var showDialogAbaya by remember { mutableStateOf(false) }
     var selectedAbaya by remember { mutableStateOf("") }
     var selectedAbayaImage by remember { mutableStateOf(0) }
-//    val cartItems = remember { mutableStateOf(0) } // Cart item count
 
     Box(
         modifier = Modifier
@@ -104,24 +103,23 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController,) 
                 )
             }
 
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(30.dp))
         }
 
         // Cart Icon with Badge
         Box(
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .padding(top = 45.dp, end = 8.dp)
+                .padding(top = 50.dp, end = 8.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.shoppingcart),
                 contentDescription = "Cart Icon",
                 tint = colorResource(id = R.color.brand_color),
                 modifier = Modifier
-                    .size(85.dp)
+                    .size(70.dp)
                     .clickable {
                         navController.navigate("CART")
-                        // Cart click logic (e.g., navigate to cart screen)
                     }
             )
             if (homeViewModel.cartItems.size > 0) {
@@ -129,15 +127,18 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController,) 
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .size(24.dp)
-                        .background(Color.Red, shape = RoundedCornerShape(12.dp))
-                        .padding(4.dp),
+                        .background(color = colorResource(id = R.color.background2), shape = RoundedCornerShape(14.dp))
+                        .padding(2.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = "${homeViewModel.cartItems.size}",
-                        color = Color.White,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold
+                        color = Color.Red,
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily.Serif,
+                        fontStyle = FontStyle.Normal,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
                     )
                 }
             }

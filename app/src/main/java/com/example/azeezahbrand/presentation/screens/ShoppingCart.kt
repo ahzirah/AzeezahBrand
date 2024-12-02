@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -112,27 +113,10 @@ fun CartItemRow(
             Icon(
                 imageVector = Icons.Filled.Delete,
                 contentDescription = "Delete",
+
                 tint = Color.Red
             )
         }
     }
 }
 
-
-//@Preview
-//@Composable
-//fun ShoppingCartScreenPreview() {
-//    val sampleCartItems = listOf(
-//        CartItem("M", "Elegant Abaya", "49.99", "Abaya 1", R.drawable.),
-//        CartItem("L", "Classic Abaya", "59.99", "Abaya 2", R.drawable.)
-//    )
-//
-//    val mockViewModel = object : HomeViewModel() {
-//        override val cartItems: List<CartItem> get() = sampleCartItems
-//    }
-//
-//    ShoppingCartScreen(
-//        homeViewModel = mockViewModel,
-//        onBack = { println("Back pressed") }
-//    )
-//}
