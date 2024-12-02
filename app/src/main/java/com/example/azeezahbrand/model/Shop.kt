@@ -7,6 +7,7 @@ import java.util.UUID
 data class CartItem (
     var id: String = "",
     var imageId: Int = 0,
+    var userId: String = "",
     var productName: String = "",
     var productDescription: String = "",
     var productPrize: String = " ",

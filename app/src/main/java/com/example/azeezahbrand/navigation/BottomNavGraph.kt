@@ -27,20 +27,22 @@ fun BottomNavGraph(
     paddingValues: PaddingValues,
    // cartItems: MutableList<OrderDetails>
 ) {
+    val homeViewModel: HomeViewModel = viewModel()
     NavHost(
         navController = navController,
         startDestination = BottomNav.Home.route,
         modifier = Modifier.padding(paddingValues)
     ) {
         composable(route = BottomNav.Home.route) {
-            val homeViewModel: HomeViewModel = viewModel()
-            HomeScreen(homeViewModel = homeViewModel)
+
+            HomeScreen(homeViewModel = homeViewModel, navController = navController)
         }
 
         composable(route = BottomNav.Profile.route) {
             ProfileScreen(
                 navController= navController,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                homeViewModel = homeViewModel
             )
         }
         composable(route = BottomNav.SizeGuide.route) {
@@ -53,6 +55,9 @@ fun BottomNavGraph(
         }
         composable("MyOrdersScreen") {
             MyOrdersScreen(onBack = { navController.popBackStack() })
+        }
+        composable("CART") {
+            ShoppingCartScreen(homeViewModel = homeViewModel,onBack = { navController.popBackStack() })
         }
         composable("AddressBookScreen") {
             AddressBookScreen(onBack = { navController.popBackStack() })

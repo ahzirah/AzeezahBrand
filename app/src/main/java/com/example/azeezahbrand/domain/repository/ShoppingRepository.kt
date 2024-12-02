@@ -64,12 +64,28 @@ class ShoppingRepository {
                 .whereEqualTo(fieldKey, fieldValue)
                 .limit(50).get().await()
 
-            snapshot.documents.mapNotNull { resultItems -> resultItems.toObject<T>()  }
+         return   snapshot.documents.mapNotNull { resultItems -> resultItems.toObject<T>()  }
 
-            emptyList()
+//            emptyList()
         }catch (e: Exception){
             e.printStackTrace()
             emptyList()
         }
+    }
+
+    suspend  fun  delete( collectionName: String,
+                                                docId: String):Boolean{
+        return try {
+
+            firestore.collection(collectionName)
+                .document(docId)
+                .delete()
+                .await()
+            true
+        } catch (e: Exception){
+            e.printStackTrace()
+            false
+        }
+
     }
 }

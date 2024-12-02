@@ -81,14 +81,14 @@ fun LoginScreen(
   }
   val password = remember {
       mutableStateOf("")
-  }
+    }
     val context = LocalContext.current
     val initialColor = colorResource(id = R.color.brand_color)
     val myButtonBackgroundColor = remember {
         mutableStateOf(initialColor)
 
-    }
-    val authenticateSta by authenticationViewModel.authState.collectAsState()
+        }
+        val authenticateSta by authenticationViewModel.authState.collectAsState()
 
         Column(
             modifier = Modifier

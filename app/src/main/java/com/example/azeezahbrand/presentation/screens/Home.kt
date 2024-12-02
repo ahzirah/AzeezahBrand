@@ -54,6 +54,8 @@ import androidx.compose.ui.unit.sp
 import com.example.azeezahbrand.R
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavHostController
+import com.example.azeezahbrand.model.CartItem
 import com.example.azeezahbrand.model.Product
 import com.example.azeezahbrand.viewmodel.HomeViewModel
 import com.google.accompanist.pager.HorizontalPager
@@ -62,10 +64,12 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 
 @Composable
-fun HomeScreen(homeViewModel: HomeViewModel) {
+fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController,) {
     var showDialog by remember { mutableStateOf(false) }
+    var showDialogAbaya by remember { mutableStateOf(false) }
     var selectedAbaya by remember { mutableStateOf("") }
-
+    var selectedAbayaImage by remember { mutableStateOf(0) }
+//    val cartItems = remember { mutableStateOf(0) } // Cart item count
 
     Box(
         modifier = Modifier
@@ -82,7 +86,6 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
-
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.azeezahlogo),
@@ -104,19 +107,41 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
             Spacer(modifier = Modifier.height(25.dp))
         }
 
-        Icon(
-            painter = painterResource(id = R.drawable.shoppingcart),
-            contentDescription = "Cart Icon",
-            tint = colorResource(id = R.color.brand_color),
+        // Cart Icon with Badge
+        Box(
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .padding(top = 45.dp, end = 2.dp)
-                .size(85.dp)
-                .clickable {
-                    // cart click
+                .padding(top = 45.dp, end = 8.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.shoppingcart),
+                contentDescription = "Cart Icon",
+                tint = colorResource(id = R.color.brand_color),
+                modifier = Modifier
+                    .size(85.dp)
+                    .clickable {
+                        navController.navigate("CART")
+                        // Cart click logic (e.g., navigate to cart screen)
+                    }
+            )
+            if (homeViewModel.cartItems.size > 0) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .size(24.dp)
+                        .background(Color.Red, shape = RoundedCornerShape(12.dp))
+                        .padding(4.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "${homeViewModel.cartItems.size}",
+                        color = Color.White,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
-        )
-
+            }
+        }
 
         CarouselSlider()
 
@@ -126,27 +151,26 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                 .fillMaxSize()
                 .padding(top = 285.dp, start = 8.dp, end = 8.dp)
         ) {
-
-            // Loop through the list and create rows with 2 items each
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2), // 2 columns in the grid
                 contentPadding = PaddingValues(2.dp),
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-
-                items(homeViewModel.products){ product ->
+                items(homeViewModel.products) { product ->
                     ProductCard(
                         product = product,
                         onProductClick = { clickedProduct ->
-                            Log.d("PRODUCT_CLICKED", "HomeScreen: ${clickedProduct.productName}")
+                            selectedAbaya = clickedProduct.productName
+                            showDialogAbaya = true
+                            selectedAbayaImage = clickedProduct.imageId
                         }
                     )
                 }
             }
-
         }
-        //custom order wrapped in a box
+
+        // Custom Order Floating Button
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -158,28 +182,27 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Spacer(modifier = Modifier.weight(1f))
-       // custom order action button
-        ExtendedFloatingActionButton(
-            text = { Text("Custom Order") },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.azeezahlogo),
-                    contentDescription = "Custom Order Icon",
-                    modifier = Modifier.size(65.dp),
+                ExtendedFloatingActionButton(
+                    text = { Text("Custom Order") },
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.azeezahlogo),
+                            contentDescription = "Custom Order Icon",
+                            modifier = Modifier.size(65.dp),
+                        )
+                    },
+                    onClick = { showDialog = true },
+                    containerColor = colorResource(id = R.color.background2),
+                    contentColor = colorResource(id = R.color.brand_color),
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .border(
+                            width = 1.5.dp, // Border thickness
+                            color = colorResource(id = R.color.brand_color), // Border color
+                            shape = RoundedCornerShape(8.dp) // Matches the button's shape
+                        )
                 )
-            },
-            onClick = { showDialog = true },
-            containerColor = colorResource(id = R.color.background2),
-            contentColor = colorResource(id = R.color.brand_color),
-            modifier = Modifier.align(Alignment.Start)
-                .border(
-                    width = 1.5.dp, // Border thickness
-                    color = colorResource(id = R.color.brand_color), // Border color
-                    shape = RoundedCornerShape(8.dp) // Matches the button's shape
-                )
-        )
-
-                Spacer(modifier = Modifier.height(25.dp)) // Add space after the button
+                Spacer(modifier = Modifier.height(25.dp))
             }
         }
 
@@ -197,18 +220,21 @@ fun HomeScreen(homeViewModel: HomeViewModel) {
                 .fillMaxWidth()
         )
     }
+
+    if (showDialogAbaya) {
+        AbayaDetailsDialog(abayaName = selectedAbaya,image=selectedAbayaImage,onDismissRequest={
+            showDialogAbaya = false
+        }, homeViewModel = homeViewModel,
+        )}
     if (showDialog) {
-        AbayaDetailsDialog(abayaName = selectedAbaya) {
-            showDialog = false
-        }
         CustomOrderDialog(
-            onDismiss = { showDialog = false },
-            onAddToCart = { /* Handle adding the custom order to the cart */ }
+            onDismiss = { showDialog = false },Image=selectedAbayaImage
+            , homeViewModel = homeViewModel,
         )
     }
 }
 
-
+// Product Card Component
 @Composable
 fun ProductCard(
     product: Product,
@@ -258,7 +284,8 @@ fun ProductCard(
                     fontFamily = FontFamily.Serif,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(vertical = 8.dp))
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
             }
         }
     }
@@ -328,8 +355,11 @@ fun CarouselSlider() {
 @Composable
 fun AbayaDetailsDialog(
     abayaName: String,
-    onDismissRequest: () -> Unit
+    image : Int,
+    onDismissRequest: () -> Unit,
+    homeViewModel: HomeViewModel
 ) {
+    var selectedSize by remember { mutableStateOf("") }
     androidx.compose.material.AlertDialog(
         onDismissRequest = onDismissRequest,
         title = {
@@ -347,12 +377,19 @@ fun AbayaDetailsDialog(
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    listOf("S", "M", "L", "XL").forEach { size ->
+                    listOf("XS", "S", "M", "L", "XL", "XXL").forEach { size ->
                         Text(
                             text = size,
                             modifier = Modifier
-                                .border(1.dp, colorResource(id = R.color.brand_color))
-                                .padding(horizontal = 12.dp, vertical = 4.dp)
+                                .clickable { selectedSize = size } // Make it clickable
+                                .background(
+                                    if (selectedSize == size) colorResource(id = R.color.brand_color) else Color.Transparent,
+                                    shape = RoundedCornerShape(4.dp)
+                                )
+                                .border(1.dp, colorResource(id = R.color.brand_color), RoundedCornerShape(4.dp))
+                                .padding(horizontal = 12.dp, vertical = 4.dp),
+                            color = if (selectedSize == size) Color.White else colorResource(id = R.color.brand_color), // Change text color
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
@@ -361,7 +398,16 @@ fun AbayaDetailsDialog(
             }
         },
         confirmButton = {
-            androidx.compose.material.TextButton(onClick = onDismissRequest) {
+            androidx.compose.material.TextButton(onClick = {     homeViewModel.addToCartList(cartItem= CartItem(
+                size = selectedSize,
+                productDescription = abayaName,
+                productPrize = "49.99",
+                productName = abayaName,
+                imageId = image,
+
+                ))
+                onDismissRequest()
+            }) {
                 Text("Add to Cart", color = colorResource(id = R.color.brand_color))
             }
         },
@@ -374,7 +420,7 @@ fun AbayaDetailsDialog(
 }
 
 @Composable
-fun CustomOrderDialog(onDismiss: () -> Unit, onAddToCart: () -> Unit) {
+fun CustomOrderDialog(onDismiss: () -> Unit,Image:Int, homeViewModel: HomeViewModel) {
     var size by remember { mutableStateOf("") }
     var color by remember { mutableStateOf("") }
     var fabric by remember { mutableStateOf("") }
@@ -419,7 +465,14 @@ fun CustomOrderDialog(onDismiss: () -> Unit, onAddToCart: () -> Unit) {
         confirmButton = {
             Button(
                 onClick = {
-                    onAddToCart()
+                    homeViewModel.addToCartList(cartItem= CartItem(
+                        size = size,
+                        productDescription = fabric,
+                        productPrize = "49.9",
+                        productName = fabric,
+                        imageId = Image,
+
+                    ))
                     onDismiss()
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.brand_color))
