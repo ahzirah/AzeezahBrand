@@ -12,6 +12,21 @@ data class CartItem (
     var productPrize: String = " ",
     var size: String = ""
 )
+data class OrderItem(
+    val productName: String = "",
+    val size: String = "",
+    val price: String =""
+)
+data class Order(
+    val id: String ="",
+    val userId: String="",
+    val items: List<OrderItem> = emptyList(),
+    val totalPrice: Double=0.0,
+    val address: String="",
+    val timestamp: Long=12234567890
+)
+
+
 
 data class  Product (
     var productid: String = "",
@@ -53,6 +68,34 @@ val productList = listOf(
         productName = "elegant abaya",
         productDescription = "£78",
         size = listOf("XS", "S", "M", "L", "XL", "XXL")
-    )
+    ),
+    Product(
+        productid = UUID.randomUUID().toString(),
+        imageId = R.drawable.abaya4,
+        productName = "elegant abaya",
+        productDescription = "£78",
+        size = listOf("XS", "S", "M", "L", "XL", "XXL")
+    ),
+    Product(
+        productid = UUID.randomUUID().toString(),
+        imageId = R.drawable.abaya4,
+        productName = "elegant abaya",
+        productDescription = "£78",
+        size = listOf("XS", "S", "M", "L", "XL", "XXL")
+    ),
+    Product(
+        productid = UUID.randomUUID().toString(),
+        imageId = R.drawable.abaya4,
+        productName = "elegant abaya",
+        productDescription = "£78",
+        size = listOf("XS", "S", "M", "L", "XL", "XXL")
+    ),
+    Product(
+        productid = UUID.randomUUID().toString(),
+        imageId = R.drawable.abaya4,
+        productName = "elegant abaya",
+        productDescription = "£78",
+        size = listOf("XS", "S", "M", "L", "XL", "XXL")
+    ),
 )
 

@@ -11,10 +11,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.azeezahbrand.presentation.screens.AboutAzeezahScreen
 import com.example.azeezahbrand.presentation.screens.AddressBookScreen
+import com.example.azeezahbrand.presentation.screens.CheckoutScreen
 import com.example.azeezahbrand.presentation.screens.HomeScreen
 import com.example.azeezahbrand.presentation.screens.LogoutScreen
 import com.example.azeezahbrand.presentation.screens.ManageAccountScreen
 import com.example.azeezahbrand.presentation.screens.MyOrdersScreen
+import com.example.azeezahbrand.presentation.screens.OrdersScreen
 import com.example.azeezahbrand.presentation.screens.ProfileScreen
 import com.example.azeezahbrand.presentation.screens.ShoppingCartScreen
 import com.example.azeezahbrand.presentation.screens.SizeGuideScreen
@@ -57,7 +59,7 @@ fun BottomNavGraph(
             MyOrdersScreen(onBack = { navController.popBackStack() })
         }
         composable("CART") {
-            ShoppingCartScreen(homeViewModel = homeViewModel,onBack = { navController.popBackStack() })
+            ShoppingCartScreen(homeViewModel = homeViewModel,onBack = { navController.popBackStack() },navController=navController)
         }
         composable("AddressBookScreen") {
             AddressBookScreen(onBack = { navController.popBackStack() })
@@ -67,6 +69,12 @@ fun BottomNavGraph(
         }
         composable("LogoutScreen") {
             LogoutScreen()
+        }
+        composable("Checkout") {
+            CheckoutScreen(homeViewModel = homeViewModel,onBack = { navController.popBackStack() })
+        }
+        composable("Orders") {
+            OrdersScreen(homeViewModel = homeViewModel,onBack = { navController.popBackStack() })
         }
     }
 

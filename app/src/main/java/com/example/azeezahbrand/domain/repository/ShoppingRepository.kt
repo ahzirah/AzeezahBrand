@@ -63,8 +63,9 @@ class ShoppingRepository {
             val snapshot: QuerySnapshot = firestore.collection(collection)
                 .whereEqualTo(fieldKey, fieldValue)
                 .limit(50).get().await()
-
+println(snapshot.documents.mapNotNull { resultItems -> resultItems.toObject<T>()  })
          return   snapshot.documents.mapNotNull { resultItems -> resultItems.toObject<T>()  }
+
 
 //            emptyList()
         }catch (e: Exception){
@@ -81,6 +82,24 @@ class ShoppingRepository {
                 .document(docId)
                 .delete()
                 .await()
+            true
+        } catch (e: Exception){
+            e.printStackTrace()
+            false
+        }
+
+    }
+
+    suspend  fun  deleteMany( collectionName: String,
+                              queryParams: Pair<String, Any>):Boolean{
+        return try {
+            val (fieldKey, fieldValue) = queryParams
+            firestore.collection(collectionName).whereEqualTo(fieldKey, fieldValue).get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        document.reference.delete()
+                    }
+                }
             true
         } catch (e: Exception){
             e.printStackTrace()

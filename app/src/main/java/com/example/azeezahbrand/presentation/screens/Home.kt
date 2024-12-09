@@ -22,6 +22,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -68,7 +72,7 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController,) 
     var showDialog by remember { mutableStateOf(false) }
     var showDialogAbaya by remember { mutableStateOf(false) }
     var selectedAbaya by remember { mutableStateOf("") }
-    var selectedAbayaImage by remember { mutableStateOf(0) }
+    var selectedAbayaImage by remember { mutableStateOf(R.drawable.abaya1) }
 
     Box(
         modifier = Modifier
@@ -421,10 +425,12 @@ fun AbayaDetailsDialog(
 }
 
 @Composable
-fun CustomOrderDialog(onDismiss: () -> Unit,Image:Int, homeViewModel: HomeViewModel) {
+fun CustomOrderDialog(onDismiss: () -> Unit, Image:Int, homeViewModel: HomeViewModel) {
     var size by remember { mutableStateOf("") }
     var color by remember { mutableStateOf("") }
     var fabric by remember { mutableStateOf("") }
+    var ImageNew by remember { mutableStateOf(Image) }
+    var ImageProductName by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = { onDismiss() },
@@ -461,6 +467,15 @@ fun CustomOrderDialog(onDismiss: () -> Unit,Image:Int, homeViewModel: HomeViewMo
                     selectedOption = fabric,
                     onOptionSelected = { fabric = it }
                 )
+
+                DropdownMenuProductField (
+                    label = "Select Product",
+                    options = homeViewModel.products,
+                    selectedOption =ImageProductName ,
+                    onOptionSelected = { ImageNew = it.imageId;
+                        ImageProductName = it.productName
+                    }
+                )
             }
         },
         confirmButton = {
@@ -471,7 +486,7 @@ fun CustomOrderDialog(onDismiss: () -> Unit,Image:Int, homeViewModel: HomeViewMo
                         productDescription = fabric,
                         productPrize = "49.9",
                         productName = fabric,
-                        imageId = Image,
+                        imageId = ImageNew,
 
                     ))
                     onDismiss()
@@ -516,6 +531,83 @@ fun DropdownMenuField(
             options.forEach { option ->
                 DropdownMenuItem(
                     text = { Text(option) },
+                    onClick = {
+                        onOptionSelected(option)
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
+
+
+@Composable
+fun DropdownMenuProductField(
+    label: String,
+    options: List<Product>,
+    selectedOption: String,
+    onOptionSelected: (Product) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Column {
+        Text(text = label, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(1.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
+                .clickable { expanded = true }
+                .padding(12.dp)
+        ) {
+            Text(text = selectedOption.ifEmpty { "Select $label" }, color = Color.Gray)
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            options.forEach { option ->
+                DropdownMenuItem(
+                    text = {   Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Image
+                        Image(
+                            painter = painterResource(id = option.imageId),
+                            contentDescription = option.productName,
+                            modifier = Modifier
+                                .size(64.dp)
+                                .padding(end = 8.dp)
+                        )
+
+                        // Product Details
+                        Column(
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            androidx.compose.material.Text(
+                                text = option.productName,
+                                style = MaterialTheme.typography.h6
+                            )
+                            androidx.compose.material.Text(
+                                text = option.productDescription,
+                                style = MaterialTheme.typography.body2
+                            )
+                            androidx.compose.material.Text(
+                                text = "Size: ${option.size}",
+                                style = MaterialTheme.typography.body2
+                            )
+                            androidx.compose.material.Text(
+                                text = "Price: $${option.productPrize}",
+                                style = MaterialTheme.typography.body2,
+                                color = Color.Gray
+                            )
+                        }
+
+
+                    } },
                     onClick = {
                         onOptionSelected(option)
                         expanded = false

@@ -165,7 +165,7 @@ fun ProfileScreen(
 
             // Profile Options
             ProfileOption("Address Book", android.R.drawable.ic_menu_mylocation, navController, "AddressBookScreen")
-            ProfileOption("My Orders", android.R.drawable.ic_menu_view, navController, "MyOrdersScreen")
+            ProfileOption("My Orders", android.R.drawable.ic_menu_view, navController, "Orders")
             ProfileOption("About AZEEZAH", android.R.drawable.ic_menu_more, navController, "AboutAzeezahScreen")
             ProfileOption("Logout", android.R.drawable.ic_lock_power_off, navController, "LogoutScreen")
         }

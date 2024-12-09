@@ -7,21 +7,30 @@ import androidx.lifecycle.viewModelScope
 import com.example.azeezahbrand.domain.repository.AuthenticationRepository
 import com.example.azeezahbrand.domain.repository.ShoppingRepository
 import com.example.azeezahbrand.model.CartItem
+import com.example.azeezahbrand.model.Order
+import com.example.azeezahbrand.model.OrderItem
 import com.example.azeezahbrand.model.Product
 import com.example.azeezahbrand.model.productList
+import com.example.azeezahbrand.presentation.authentication.AuthenticationState
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.UUID
 
 class HomeViewModel: ViewModel(){
-
+    private val _homeState = MutableStateFlow<HomeState>(HomeState.inActive)
+    val homeState: StateFlow<HomeState> get() = _homeState
     val authRepo = AuthenticationRepository()
     val shoppingRepository = ShoppingRepository()
 
 
     private val _cartItems = mutableStateListOf<CartItem>()
     val cartItems: SnapshotStateList<CartItem> get() = _cartItems
+
+    private val _orderItems = mutableStateListOf<Order>()
+    val orderItems: SnapshotStateList<Order> get() = _orderItems
 
     private val _products = mutableStateListOf<Product>()
     val products: SnapshotStateList<Product> get() = _products
@@ -38,7 +47,9 @@ class HomeViewModel: ViewModel(){
         viewModelScope.launch {
             fetchCurrentUserID()
             fetchCartItem()
+            fetchOrders()
             fetchProducts()
+
         }
     }
 
@@ -77,7 +88,55 @@ class HomeViewModel: ViewModel(){
         }
     }
 
+    private suspend fun fetchOrders(){
+        val queryFilter = Pair("userId", currentUserID!!)
 
+        try {
+            val orderItemList =  shoppingRepository.fetchDocuments<Order>("orders", queryFilter)
+            println(orderItemList);
+            _orderItems.addAll(orderItemList)
+
+        }catch (e: Exception){
+            e.printStackTrace()
+            // - TODO - Put a log statement here.
+        }
+    }
+
+     fun saveOrderToCollection( cartItems: List<CartItem>, totalPrice: Double, address: String) {
+
+         val orderId = UUID.randomUUID().toString()
+         viewModelScope.launch {
+             _homeState.value = HomeState.loading
+             val order = hashMapOf(
+                 "userId" to currentUserID!!,
+                 "id" to orderId,
+                 "items" to cartItems.map { item ->
+                     mapOf(
+                         "productName" to item.productName,
+                         "size" to item.size,
+                         "price" to item.productPrize
+                     )
+                 },
+                 "totalPrice" to totalPrice,
+                 "address" to address,
+                 "timestamp" to System.currentTimeMillis()
+             )
+             shoppingRepository.saveDocument("orders", order, orderId)
+//             _homeState.value = HomeState.Success(order)
+             // Add to Firestore or any other database
+             // Firestore.collection("orders").add(order)
+         }
+     }
+
+     fun deleteCartItems() {
+         val queryFilter = Pair("userId", currentUserID!!)
+         viewModelScope.launch {
+             _cartItems.clear()
+             shoppingRepository.deleteMany("cartItem", queryFilter);
+         }
+        // Example Firestore query to delete all cart items for the user
+
+    }
 
     fun fetchProducts() {
         // Fetch dummy data
@@ -125,4 +184,12 @@ class HomeViewModel: ViewModel(){
 
 
     }
+}
+
+
+sealed class HomeState {
+    object loading : HomeState()
+    object inActive : HomeState()
+    data class Success(val response: Any?) : HomeState()
+    data class Error(val message: Any) : HomeState()
 }

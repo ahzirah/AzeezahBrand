@@ -17,6 +17,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.azeezahbrand.R
 import com.example.azeezahbrand.model.CartItem
 import com.example.azeezahbrand.viewmodel.HomeViewModel
@@ -24,7 +25,8 @@ import com.example.azeezahbrand.viewmodel.HomeViewModel
 @Composable
 fun ShoppingCartScreen(
     homeViewModel: HomeViewModel,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    navController: NavHostController
 ) {
     val cartItems = homeViewModel.cartItems
 
@@ -67,7 +69,7 @@ fun ShoppingCartScreen(
 
             // Checkout Button
             Button(
-                onClick = { /* Handle Checkout */ },
+                onClick = {  navController.navigate("Checkout") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp)
