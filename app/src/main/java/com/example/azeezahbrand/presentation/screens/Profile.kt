@@ -3,22 +3,19 @@ package com.example.azeezahbrand.presentation.screens
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.launch
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,10 +30,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.core.content.FileProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
@@ -55,6 +52,23 @@ fun ProfileScreen(
     val imageUri = remember { mutableStateOf<Uri?>(null) }
     val showImageDialog = remember { mutableStateOf(false) }
 
+    // Create a temporary file for the captured image
+    val tempImageFile = remember {
+        File(context.cacheDir, "temp_image_${System.currentTimeMillis()}.jpg").apply {
+            createNewFile()
+            deleteOnExit()
+        }
+    }
+
+    // Use FileProvider to create a secure URI for the temporary file
+    val tempImageUri = remember {
+        FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.fileprovider",
+            tempImageFile
+        )
+    }
+
     // Launcher for picking an image from the gallery
     val pickImageLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -64,11 +78,21 @@ fun ProfileScreen(
 
     // Launcher for capturing an image with the camera
     val takePictureLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicturePreview()
-    ) { bitmap: Bitmap? ->
-        bitmap?.let {
-            val savedUri = saveBitmapToInternalStorage(context, it)
-            imageUri.value = savedUri
+        contract = ActivityResultContracts.TakePicture()
+    ) { success ->
+        if (success) {
+            imageUri.value = tempImageUri
+        }
+    }
+
+    // Permission launcher
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            takePictureLauncher.launch(tempImageUri)
+        } else {
+            Toast.makeText(context, "Camera permission denied", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -201,7 +225,7 @@ fun ProfileScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     Button(
                         onClick = {
-                            takePictureLauncher.launch()
+                            permissionLauncher.launch(android.Manifest.permission.CAMERA)
                             showImageDialog.value = false
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -221,7 +245,6 @@ fun ProfileScreen(
     }
 }
 
-
 // Function to save Bitmap to internal storage
 fun saveBitmapToInternalStorage(context: Context, bitmap: Bitmap): Uri {
     val filename = "profile_image_${System.currentTimeMillis()}.jpg"
@@ -233,12 +256,8 @@ fun saveBitmapToInternalStorage(context: Context, bitmap: Bitmap): Uri {
     return Uri.fromFile(file)
 }
 
-
 @Composable
-fun ProfileOption(title: String,
-                  iconRes: Int,
-                  navController: NavController,
-                  destination: String) {
+fun ProfileOption(title: String, iconRes: Int, navController: NavController, destination: String) {
     Card(
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp,
@@ -271,15 +290,15 @@ fun ProfileOption(title: String,
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = "Arrow",
                 tint = Color.Gray,
-                modifier = Modifier.size(16.dp)
-                                    .clickable {
-                                        navController.navigate(destination)
-                                    }
+                modifier = Modifier
+                    .size(16.dp)
+                    .clickable {
+                        navController.navigate(destination)
+                    }
             )
         }
     }
 }
-
 
 @Composable
 fun LogoutScreen() {
@@ -291,4 +310,6 @@ fun LogoutScreen() {
         Text(text = "Logout Screen")
     }
 }
+
+
 
