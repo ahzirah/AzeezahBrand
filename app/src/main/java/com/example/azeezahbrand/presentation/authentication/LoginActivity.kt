@@ -214,7 +214,10 @@ fun LoginScreen(
                         textAlign = TextAlign.Center,
                     )
                 }
-                TextButton(onClick = {}) {
+                TextButton(onClick = {
+                    val intent = Intent(context, RegisterActivity::class.java)
+                    context.startActivity(intent)
+                }) {
                     Text("Register",
                         fontStyle = FontStyle.Italic,)
                 }

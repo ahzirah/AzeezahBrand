@@ -43,7 +43,7 @@ val productList = listOf(
     Product(
         productid = UUID.randomUUID().toString(),
         imageId = R.drawable.abaya1,
-        productName = "sheer abaya",
+        productName = "Sheer abaya",
         productDescription = "",
         productPrize = "£45",
         size = listOf("XS", "S", "M", "L", "XL", "XXL")
@@ -58,43 +58,43 @@ val productList = listOf(
     Product(
         productid = UUID.randomUUID().toString(),
         imageId = R.drawable.abaya3,
-        productName = "classic abaya",
+        productName = "Classic abaya",
         productDescription = "£90",
         size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
     Product(
         productid = UUID.randomUUID().toString(),
-        imageId = R.drawable.abaya4,
-        productName = "elegant abaya",
+        imageId = R.drawable.abaya9,
+        productName = "Elegant abaya",
         productDescription = "£78",
         size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
     Product(
         productid = UUID.randomUUID().toString(),
-        imageId = R.drawable.abaya4,
-        productName = "elegant abaya",
-        productDescription = "£78",
+        imageId = R.drawable.abaya5,
+        productName = "Luxury abaya",
+        productDescription = "£23",
         size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
     Product(
         productid = UUID.randomUUID().toString(),
-        imageId = R.drawable.abaya4,
-        productName = "elegant abaya",
-        productDescription = "£78",
+        imageId = R.drawable.abaya6,
+        productName = "Simple abaya",
+        productDescription = "£34",
         size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
     Product(
         productid = UUID.randomUUID().toString(),
-        imageId = R.drawable.abaya4,
-        productName = "elegant abaya",
-        productDescription = "£78",
+        imageId = R.drawable.abaya7,
+        productName = "Stylish abaya",
+        productDescription = "£55",
         size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
     Product(
         productid = UUID.randomUUID().toString(),
-        imageId = R.drawable.abaya4,
-        productName = "elegant abaya",
-        productDescription = "£78",
+        imageId = R.drawable.abaya8,
+        productName = "Everyday abaya",
+        productDescription = "£56",
         size = listOf("XS", "S", "M", "L", "XL", "XXL")
     ),
 )

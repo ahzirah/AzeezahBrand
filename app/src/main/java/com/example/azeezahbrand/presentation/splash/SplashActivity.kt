@@ -49,7 +49,7 @@ fun SplashScreen() {
         .background(
             brush = Brush.linearGradient(
                 colors = listOf(
-                   // colorResource(id = R.color.background3), // Start color from colors.xml
+
 
                     colorResource(id = R.color.background2),
                     colorResource(id = R.color.background2),
@@ -57,7 +57,7 @@ fun SplashScreen() {
                 )
             )
         ),
-       // .background(Color.White),
+
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {
 

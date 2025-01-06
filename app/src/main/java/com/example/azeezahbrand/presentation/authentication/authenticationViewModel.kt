@@ -24,7 +24,7 @@ class AuthenticationViewModel(private val authrepository: AuthenticationReposito
                     val firestoreResult = authrepository.addUserToFirestore(it.uid, fullName,)
                     if (firestoreResult.isSuccess) {
                         _authenticationState.value = AuthenticationState.Success(user)
-                        onSuccess() // Navigate to the next page after successful signup and Firestore write
+                        onSuccess()
                     } else {
                         _authenticationState.value = AuthenticationState.Error(firestoreResult.exceptionOrNull()?.message ?: "Error storing user data")
                         Toast.makeText(context, result.exceptionOrNull()?.message ?: "Error retrieving user data", Toast.LENGTH_SHORT).show()

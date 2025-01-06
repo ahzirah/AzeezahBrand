@@ -24,8 +24,7 @@ import com.example.azeezahbrand.navigation.BottomNavGraph
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-   // val cartItemCount = remember { mutableStateOf(0) }
-   // val cartItems = remember { mutableStateListOf<OrderDetails>() }
+
     Scaffold(
         bottomBar = {
             BottomBar(navController = navController)

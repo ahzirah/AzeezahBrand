@@ -10,11 +10,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.azeezahbrand.presentation.screens.AboutAzeezahScreen
-import com.example.azeezahbrand.presentation.screens.AddressBookScreen
 import com.example.azeezahbrand.presentation.screens.CheckoutScreen
 import com.example.azeezahbrand.presentation.screens.HomeScreen
-import com.example.azeezahbrand.presentation.screens.LogoutScreen
-import com.example.azeezahbrand.presentation.screens.ManageAccountScreen
 import com.example.azeezahbrand.presentation.screens.MyOrdersScreen
 import com.example.azeezahbrand.presentation.screens.OrdersScreen
 import com.example.azeezahbrand.presentation.screens.ProfileScreen
@@ -60,16 +57,9 @@ fun BottomNavGraph(
         }
         composable("CART") {
             ShoppingCartScreen(homeViewModel = homeViewModel,onBack = { navController.popBackStack() },navController=navController)
+
         }
-        composable("AddressBookScreen") {
-            AddressBookScreen(onBack = { navController.popBackStack() })
-        }
-        composable("ManageAccountScreen") {
-            ManageAccountScreen(onBack = { navController.popBackStack() })
-        }
-        composable("LogoutScreen") {
-            LogoutScreen()
-        }
+
         composable("Checkout") {
             CheckoutScreen(homeViewModel = homeViewModel,onBack = { navController.popBackStack() })
         }

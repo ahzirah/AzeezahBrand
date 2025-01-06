@@ -56,7 +56,7 @@ fun OnboardingScreen() {
         .background(
             brush = Brush.linearGradient(
                 colors = listOf(
-                    // colorResource(id = R.color.background3), // Start color from colors.xml
+
                     colorResource(id = R.color.background3),
                     colorResource(id = R.color.background2),
                     colorResource(id = R.color.background2),
@@ -65,7 +65,7 @@ fun OnboardingScreen() {
                 )
             )
         ),
-       // .background(Color.White),
+
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -136,8 +136,6 @@ fun OnboardingScreen() {
                 },
                 modifier = Modifier.size(170.dp, 45.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = myButtonBackgroundColor.value),
-                //colors = ButtonDefaults.buttonColors(colorResource(id = R.color.brand_color)),
-                //border = BorderStroke(3.dp, Color.Gray),
                 shape = RoundedCornerShape(0.dp),
             ) {
                 Text(

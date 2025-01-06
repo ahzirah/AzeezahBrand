@@ -211,19 +211,6 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController,) 
             }
         }
 
-        // Footer Text
-        Text(
-            text = "Abaya’s are for modest and classy ladies",
-            color = colorResource(id = R.color.brand_color),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Serif,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 15.dp)
-                .fillMaxWidth()
-        )
     }
 
     if (showDialogAbaya) {
@@ -250,7 +237,7 @@ fun ProductCard(
         shape = RoundedCornerShape(6.dp),
         modifier = modifier
             .aspectRatio(0.95f)
-            .clickable { onProductClick(product) }, // Adjust aspect ratio as needed
+            .clickable { onProductClick(product) },
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
@@ -300,10 +287,10 @@ fun ProductCard(
 @Composable
 fun CarouselSlider() {
     val images = listOf(
-        R.drawable.abaya1,
-        R.drawable.abaya2,
-        R.drawable.abaya3,
-        R.drawable.abaya4
+        R.drawable.abaya9,
+        R.drawable.abaya6,
+        R.drawable.abaya7,
+        R.drawable.abaya8
     )
 
     val pagerState = rememberPagerState()
@@ -386,7 +373,7 @@ fun AbayaDetailsDialog(
                         Text(
                             text = size,
                             modifier = Modifier
-                                .clickable { selectedSize = size } // Make it clickable
+                                .clickable { selectedSize = size }
                                 .background(
                                     if (selectedSize == size) colorResource(id = R.color.brand_color) else Color.Transparent,
                                     shape = RoundedCornerShape(4.dp)

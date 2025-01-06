@@ -52,7 +52,7 @@ fun CheckoutScreen(
                     homeViewModel.saveOrderToCollection(cartItems, totalPrice, address)
                     homeViewModel.deleteCartItems()
 
-                    // Switch to the main thread for Toast and navigation
+
                     CoroutineScope(Dispatchers.Main).launch {
                         Toast.makeText(context, "Order was successful", Toast.LENGTH_SHORT).show()
                         val intent = Intent(context, MainActivity::class.java)

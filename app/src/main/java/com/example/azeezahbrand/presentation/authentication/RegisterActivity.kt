@@ -162,7 +162,6 @@ fun RegisterScreen(
             labelText = "Email",
             leadingIcon = Icons.Default.Email,
             keyboardType = KeyboardType.Email,
-//            visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
         )
         Spacer(modifier = Modifier.height(itemSpacing))
@@ -351,7 +350,7 @@ fun RegisterScreen(
   onIconClick: (index: Int) -> Unit,
      modifier: Modifier = Modifier
      ) {
-   val iconList = listOf(
+       val iconList = listOf(
        R.drawable.social_icon
       )
             Column(

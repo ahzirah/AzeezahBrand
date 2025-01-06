@@ -51,6 +51,7 @@ fun ProfileScreen(
     val context = LocalContext.current
     val imageUri = remember { mutableStateOf<Uri?>(null) }
     val showImageDialog = remember { mutableStateOf(false) }
+    val showLogoutDialog = remember { mutableStateOf(false) }
 
     // Create a temporary file for the captured image
     val tempImageFile = remember {
@@ -188,12 +189,50 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             // Profile Options
-            ProfileOption("Address Book", android.R.drawable.ic_menu_mylocation, navController, "AddressBookScreen")
             ProfileOption("My Orders", android.R.drawable.ic_menu_view, navController, "Orders")
-            ProfileOption("About AZEEZAH", android.R.drawable.ic_menu_more, navController, "AboutAzeezahScreen")
-            ProfileOption("Logout", android.R.drawable.ic_lock_power_off, navController, "LogoutScreen")
+            ProfileOption(
+                "About AZEEZAH",
+                android.R.drawable.ic_menu_more,
+                navController,
+                "AboutAzeezahScreen"
+            )
+            Spacer(modifier = Modifier.height(55.dp))
+            // Logout Button
+            Button(
+                onClick = { showLogoutDialog.value = true },
+                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.brand_color)),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Logout", color = Color.White)
+            }
         }
     }
+
+// Logout Confirmation Dialog
+    if (showLogoutDialog.value) {
+        AlertDialog(
+            onDismissRequest = { showLogoutDialog.value = false },
+            title = { Text("Logout Confirmation") },
+            text = { Text("Are you sure you want to log out?") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showLogoutDialog.value = false
+                        navController.navigate("LogoutScreen")
+                    },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.brand_color))
+                ) {
+                    Text("Yes", color = Color.White)
+                }
+            },
+            dismissButton = {
+                OutlinedButton(onClick = { showLogoutDialog.value = false }) {
+                    Text("No")
+                }
+            }
+        )
+    }
+
 
     // Image Dialog
     if (showImageDialog.value) {
@@ -300,16 +339,6 @@ fun ProfileOption(title: String, iconRes: Int, navController: NavController, des
     }
 }
 
-@Composable
-fun LogoutScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Text(text = "Logout Screen")
-    }
-}
 
 
 

@@ -56,7 +56,7 @@ fun MyOrdersScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
-                onClick = { /* Handle Checkout */ },
+                onClick = {  },
             ) {
 
                 Text("Checkout")
