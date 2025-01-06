@@ -70,7 +70,7 @@ class HomeViewModel: ViewModel(){
 
         }catch (e: Exception){
             e.printStackTrace()
-            // - TODO - Put a log statement here.
+
         }
     }
 
@@ -84,7 +84,7 @@ class HomeViewModel: ViewModel(){
 
         }catch (e: Exception){
             e.printStackTrace()
-            // - TODO - Put a log statement here.
+
         }
     }
 
@@ -98,7 +98,7 @@ class HomeViewModel: ViewModel(){
 
         }catch (e: Exception){
             e.printStackTrace()
-            // - TODO - Put a log statement here.
+
         }
     }
 

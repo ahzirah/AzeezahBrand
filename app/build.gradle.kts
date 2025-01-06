@@ -80,11 +80,6 @@ dependencies {
 
 
     implementation(libs.coil.compose.v240)
-    
-
-
-//    implementation (libs.androidx.navigation.compose.v273)
-
 
 
     // Compose Material Icons

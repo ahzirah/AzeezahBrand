@@ -148,60 +148,67 @@ fun LoginScreen(
 
             LoginTextField(
                 value = password.value,
-                onValueChange = {password.value=it},
+                onValueChange = { password.value = it },
                 labelText = "Password",
                 leadingIcon = Icons.Default.Lock,
                 keyboardType = KeyboardType.Password,
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth(),
 
-            )
+                )
             Spacer(modifier = Modifier.height(itemSpacing))
 
 
             Spacer(modifier = Modifier.height(itemSpacing))
 
-            Button(onClick =
+            Button(
+                onClick =
                 {
-                    when{
-                        (email.value.isEmpty() || password.value.isEmpty())->{
-                            Toast.makeText(context,"Fields cannot be empty", Toast.LENGTH_SHORT).show()
+                    when {
+                        (email.value.isEmpty() || password.value.isEmpty()) -> {
+                            Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_SHORT)
+                                .show()
                         }
-                        else->{
+
+                        else -> {
                             authenticationViewModel.signIn(
                                 email = email.value,
-                                password=password.value,
-                                onNavigate = {myButtonBackgroundColor.value = Color.Gray
+                                password = password.value,
+                                onNavigate = {
+                                    myButtonBackgroundColor.value = Color.Gray
                                     val intent = Intent(context, MainActivity::class.java)
-                                    context.startActivity(intent) },
-                                context=context
+                                    context.startActivity(intent)
+                                },
+                                context = context
                             )
 
                         }
                     }
 
-            }, modifier = Modifier.size(170.dp, 45.dp),
-                //enabled = isFieldsEmpty,
+                },
+                modifier = Modifier.size(170.dp, 45.dp),
                 shape = RoundedCornerShape(0.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = myButtonBackgroundColor.value),
             ) {
-                when(authenticateSta){
-                    is AuthenticationState.loading-> CircularProgressIndicator()
+                when (authenticateSta) {
+                    is AuthenticationState.loading -> CircularProgressIndicator()
 
-                    else-> Text("Login",
-                        fontFamily = FontFamily.Serif,)
+                    else -> Text(
+                        "Login",
+                        fontFamily = FontFamily.Serif,
+                    )
                 }
 
 
             }
 
-            Spacer(modifier = Modifier.padding(50.dp))
+            Spacer(modifier = Modifier.padding(15.dp))
 
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
@@ -218,100 +225,19 @@ fun LoginScreen(
                     val intent = Intent(context, RegisterActivity::class.java)
                     context.startActivity(intent)
                 }) {
-                    Text("Register",
-                        fontStyle = FontStyle.Italic,)
+                    Text(
+                        "Register",
+                        fontStyle = FontStyle.Italic,
+                    )
                 }
             }
 
-            Row (
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                )
-
-                {
-                    Text(
-                        text = "-----------------",
-                        color = colorResource(id = R.color.black),
-                        fontStyle = FontStyle.Normal,
-                        textAlign = TextAlign.Center,
-                    )
-                    Text(
-                        text = "Or Continue With",
-                        color = colorResource(id = R.color.black),
-                        fontStyle = FontStyle.Normal,
-                        textAlign = TextAlign.Center,
-                    )
-                }
-                Text(
-                    text = "-----------------",
-                    color = colorResource(id = R.color.black),
-                    fontStyle = FontStyle.Normal,
-                    textAlign = TextAlign.Center,
-                )
-
-
-            }
-
-            Spacer(modifier = Modifier.padding(14.dp))
-
-            AlternativeLoginOption(
-                onIconClick = { index ->
-                    when (index) {
-                        0 -> {
-                            Toast.makeText(context, "Google Login Click", Toast.LENGTH_SHORT).show()
-                        }
-
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentSize(align = Alignment.BottomCenter)
-            )
         }
-
-}
-
-@Composable
-fun AlternativeLoginOption(
-    onIconClick: (index: Int) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val iconList = listOf(
-        R.drawable.social_icon
-    )
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        iconList.forEachIndexed { index, iconResId ->
-            Icon(
-                painter = painterResource(iconResId),
-                contentDescription = "Alternative Login",
-                modifier = Modifier
-                    .size(32.dp)
-                    .clickable {
-                        onIconClick(index)
-                    }
-                    .clip(CircleShape)
-            )
-            Spacer(modifier = Modifier.padding(14.dp))
-        }
-    }
 }
 
 
 
 
 
-@Preview()
-@Composable
-fun PreviewLoginActivity() {
-    LoginScreen()
-            }
+
 

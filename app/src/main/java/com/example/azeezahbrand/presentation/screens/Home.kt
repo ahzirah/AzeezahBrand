@@ -287,10 +287,10 @@ fun ProductCard(
 @Composable
 fun CarouselSlider() {
     val images = listOf(
-        R.drawable.abaya9,
-        R.drawable.abaya6,
-        R.drawable.abaya7,
-        R.drawable.abaya8
+        R.drawable.carousel1,
+        R.drawable.carousel2,
+        R.drawable.carousel3
+
     )
 
     val pagerState = rememberPagerState()
@@ -298,7 +298,7 @@ fun CarouselSlider() {
 
     LaunchedEffect(pagerState.currentPage) {
         while (true) {
-            delay(3000)
+            delay(4000)
             val nextPage = (pagerState.currentPage + 1) % images.size
             pagerState.animateScrollToPage(nextPage)
         }
@@ -313,10 +313,10 @@ fun CarouselSlider() {
         HorizontalPager(
             count = images.size,
             state = pagerState,
-            contentPadding = PaddingValues(horizontal = 16.dp)
+            contentPadding = PaddingValues(horizontal = 18.dp)
         ) { page ->
             Card(
-                shape = RoundedCornerShape(8.dp),
+                shape = RoundedCornerShape(0.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 modifier = Modifier.fillMaxSize()
             ) {

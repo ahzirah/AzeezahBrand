@@ -296,94 +296,9 @@ fun RegisterScreen(
             }
         }
 
-        Row (
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ){
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            )
 
-            {
-                Text(
-                    text = "-----------------",
-                    color = colorResource(id = R.color.black),
-                    fontStyle = FontStyle.Normal,
-                    textAlign = TextAlign.Center,
-                )
-                Text(
-                    text = "Or Continue With",
-                    color = colorResource(id = R.color.black),
-                    fontStyle = FontStyle.Normal,
-                    textAlign = TextAlign.Center,
-                )
-            }
-            Text(
-                text = "-----------------",
-                color = colorResource(id = R.color.black),
-                fontStyle = FontStyle.Normal,
-                textAlign = TextAlign.Center,
-            )
-
-        }
-
-        Spacer(modifier = Modifier.padding(14.dp))
-
-
-        AlternativeLoginOption(
-            onIconClick = { index ->
-                when (index) {
-                    0 -> {
-                        Toast.makeText(context, "Google Login Click", Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-            },
-            modifier = Modifier
-                .fillMaxSize()
-                .wrapContentSize(align = Alignment.BottomCenter)
-        )
-@Composable
- fun AlternativeLoginOption(
-  onIconClick: (index: Int) -> Unit,
-     modifier: Modifier = Modifier
-     ) {
-       val iconList = listOf(
-       R.drawable.social_icon
-      )
-            Column(
-                modifier = modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                iconList.forEachIndexed { index, iconResId ->
-                    Icon(
-                        painter = painterResource(iconResId),
-                        contentDescription = "Alternative Login",
-                        modifier = Modifier
-                            .size(32.dp)
-                            .clickable {
-                                onIconClick(index)
-                            }
-                            .clip(CircleShape)
-                    )
-                    Spacer(modifier = Modifier.padding(14.dp))
-                }
-            }
-        }
-
-
-            }
     }
-
-
-
-
-@Preview()
-@Composable
-fun PreviewRegisterActivity() {
-    RegisterScreen()
 }
+
+
 
