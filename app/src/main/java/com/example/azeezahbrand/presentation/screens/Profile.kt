@@ -1,6 +1,7 @@
 package com.example.azeezahbrand.presentation.screens
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.Toast
@@ -38,6 +39,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.azeezahbrand.R
+import com.example.azeezahbrand.presentation.authentication.RegisterActivity
 import com.example.azeezahbrand.viewmodel.HomeViewModel
 import java.io.File
 import java.io.FileOutputStream
@@ -51,7 +53,6 @@ fun ProfileScreen(
     val context = LocalContext.current
     val imageUri = remember { mutableStateOf<Uri?>(null) }
     val showImageDialog = remember { mutableStateOf(false) }
-    val showLogoutDialog = remember { mutableStateOf(false) }
 
     // Create a temporary file for the captured image
     val tempImageFile = remember {
@@ -199,7 +200,9 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.height(55.dp))
             // Logout Button
             Button(
-                onClick = { showLogoutDialog.value = true },
+                onClick = {  val intent = Intent(context, RegisterActivity::class.java)
+                    context.startActivity(intent)
+                          },
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.brand_color)),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -208,30 +211,6 @@ fun ProfileScreen(
         }
     }
 
-// Logout Confirmation Dialog
-    if (showLogoutDialog.value) {
-        AlertDialog(
-            onDismissRequest = { showLogoutDialog.value = false },
-            title = { Text("Logout Confirmation") },
-            text = { Text("Are you sure you want to log out?") },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        showLogoutDialog.value = false
-                        navController.navigate("LogoutScreen")
-                    },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.brand_color))
-                ) {
-                    Text("Yes", color = Color.White)
-                }
-            },
-            dismissButton = {
-                OutlinedButton(onClick = { showLogoutDialog.value = false }) {
-                    Text("No")
-                }
-            }
-        )
-    }
 
 
     // Image Dialog
